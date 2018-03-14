@@ -47,6 +47,30 @@ class topicList(unittest.TestCase):
         insert_img(self.driver,"10新建讲座直播话题-收费.jpg")
         # 断言
         self.assertIn("讲座直播话题-收费",self.driver.title)
+    def test_b_createPptTopic_free(self):
+        '''新建幻灯片直播话题-免费'''
+        self.dashboard.topicList()
+        self.topicList.createPptTopicFree()
+        sleep(1)
+        insert_img(self.driver,"11幻灯片直播话题-免费.jpg")
+        # 断言
+        self.assertIn("幻灯片直播话题-免费",self.driver.title)
+    def test_b1_createPptTopic_encrypt(self):
+        '''新建幻灯片直播话题-加密'''
+        self.dashboard.topicList()
+        self.topicList.createPptTopicEncrypted()
+        sleep(1)
+        insert_img(self.driver,"12幻灯片直播话题-加密.jpg")
+        # 断言
+        self.assertIn("幻灯片直播话题-加密",self.driver.title)
+    def test_b2_createPptTopic_charge(self):
+        '''新建幻灯片直播话题-收费'''
+        self.dashboard.topicList()
+        self.topicList.createPptTopicCharge()
+        sleep(1)
+        insert_img(self.driver,"13幻灯片直播话题-收费.jpg")
+        # 断言
+        self.assertIn("幻灯片直播话题-收费",self.driver.title)
 
 if __name__ == "__main__":
     unittest.main()

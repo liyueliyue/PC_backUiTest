@@ -46,3 +46,9 @@ class Page():
     # 执行js脚本
     def execute_js(self,src):
         return self.driver.execute_script(src)
+    # 处理下拉框
+    def select(self,el,number):
+        return Select(el).select_by_index(number)
+    #警告框的处理，获取文本
+    def switch_alert(self):
+        return self.driver.switch_to_alert().text
