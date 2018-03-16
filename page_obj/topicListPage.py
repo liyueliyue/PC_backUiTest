@@ -3,6 +3,7 @@ sys.path.append('./page_object')
 from page_obj.base import Page
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.action_chains import ActionChains
+from models.dataFile import getDataFile
 
 class TopicList(Page):
     """单课列表页面类"""
@@ -35,21 +36,29 @@ class TopicList(Page):
 
     # 创建音视频录播课程
     audioAndVideoGraTopicname_loc = (By.XPATH,".//*[@id='app']/div/div[1]/div/div[2]/div/div[2]/div[2]/form/div[1]/div[2]/div/input")
+    # 课程封面
+    topicPic_loc = (By.XPATH,'//*[@id="app"]/div/div[1]/div/div[2]/div/div[2]/div[2]/form/div[2]/div[2]/div/span[2]/div/div/input[1]')
     videoGra_loc = (By.XPATH,".//*[@id='app']/div/div[1]/div/div[2]/div/div[2]/div[2]/form/div[3]/div[2]/div/div/label[1]")
     audioGra_loc = (By.XPATH,".//*[@id='app']/div/div[1]/div/div[2]/div/div[2]/div[2]/form/div[3]/div[2]/div/div/label[2]")
     channelbutton_loc = (By.XPATH,".//*[@id='app']/div/div[1]/div/div[2]/div/div[2]/div[2]/form/div[4]/div[2]/div/div[1]/label[1]")
     campleButton_loc = (By.XPATH,".//*[@id='app']/div/div[1]/div/div[2]/div/div[2]/div[2]/form/div[4]/div[2]/div/div[1]/label[2]")
-    channelSelectbutton_loc = (By.XPATH,".//*[@id='from-channel']/div[1]/div")
-    campleSelectButton_loc = (By.XPATH,".//*[@id='from-camp']/div[1]/div")
+    channelSelectbutton_loc = (By.XPATH,".//*[@id='from-channel']/div/div/div/div[1]")
+    campleSelectButton_loc = (By.XPATH,".//*[@id='from-camp']/div/div/div/div[1]")
+    channell_loc = (By.XPATH,".//*[@id='from-channel']/div[2]/div/div/div/ul/li[1]")
     singleSoleInChannel_loc = (By.XPATH,".//*[@id='from-channel']/label/span[1]/input")
     singleSolePrice_loc = (By.XPATH,".//*[@id='app']/div/div[1]/div/div[2]/div/div[2]/div[2]/form/div[4]/div[2]/div/div[3]/span/span/input")
+    # 添加图片按钮
+    liveIntroPictureButton_loc = (By.XPATH,'//*[@id="app"]/div/div[1]/div/div[2]/div/div[2]/div[2]/form/div[5]/div[2]/div/div[1]/div/input[1]')
     liveIntroTextButton_loc = (By.XPATH,".//*[@id='app']/div/div[1]/div/div[2]/div/div[2]/div[2]/form/div[5]/div[2]/div/div[2]")
     liveIntroText_loc = (By.XPATH,".//*[@id='app']/div/div[1]/div/div[2]/div/div[2]/div[2]/form/div[5]/div[2]/div/section/div/textarea")
     liveIntroPicButton_loc = (By.XPATH,".//*[@id='app']/div/div[1]/div/div[2]/div/div[2]/div[2]/form/div[5]/div[2]/div/div[1]/div/input[1]")
     saveButton_loc = (By.XPATH,".//*[@id='app']/div/div[1]/div/div[2]/div/div[2]/div[2]/form/div[6]/div/div/button")
-
+    # 上传视频按钮
+    sendVideoButton_loc = (By.XPATH,'//*[@id="uploader"]/div/input[1]')
     # 保存视频图文创建
     saveVideoGra_loc = (By.XPATH,'//*[@id="app"]/div/div[1]/div/div[2]/div/div[2]/div[2]/form/div[6]/div/div/button')
+    # 上传成功，是否去往系列课话题列表页按钮
+    backTopicListButton_loc = (By.XPATH,"/html/body/div[3]/div/div[2]/div/div[1]/div/div/div[2]/button[2]")
 
     #获取单课列表面包屑text
     def getTopicTitleText(self):
@@ -168,22 +177,33 @@ class TopicList(Page):
         self.wait_element(*self.createTopicButton_loc).click()
         self.wait_element(*self.audioAndVideoGra_loc).click()
         # 课程主题
-        self.wait_element(*self.audioAndVideoGraTopicname_loc).send_keys("这个是视频图文话题啊")
+        self.wait_element(*self.audioAndVideoGraTopicname_loc).send_keys("这个是视频图文话题啊"+str(time.time()))
+        # 上传课程封面
+        topicPic = getDataFile("测试图片-sportguy1.jpg")
+        self.wait_element(*self.topicPic_loc).send_keys(topicPic)
         # 课程类型
         self.wait_element(*self.videoGra_loc).click()
         # 收费类型
         self.wait_element(*self.channelbutton_loc).click()
         # 选择第一个系列课（这里不是select标签）
-        self.select(*self.channelSelectbutton_loc,number=1)
+        self.wait_element(*self.channelSelectbutton_loc).click()
+        self.wait_element(*self.channell_loc).click()
         # 选择系列课内单买
         self.wait_element(*self.singleSoleInChannel_loc).click()
         self.wait_element(*self.singleSolePrice_loc).send_keys('1')
+        # 直播概要-图片
+        liveIntroPicture = getDataFile("测试图片-sportguy2.jpg")
+        self.wait_element(*self.liveIntroPictureButton_loc).send_keys(liveIntroPicture)
         # 直播概要-添加文字
         self.wait_element(*self.liveIntroTextButton_loc).click()
         self.wait_element(*self.liveIntroText_loc).send_keys('这个是视频图文话题啊！')
         # 保存
         self.wait_element(*self.saveButton_loc).click()
+        # 上传视频  是input表单直接直接使用send_keys()
+        video = getDataFile("测试视频-sportguy.mp4")
+        self.wait_element(*self.sendVideoButton_loc).send_keys(video)
+        time.sleep(3)
+        # 点击返回话题列表页面
+        self.wait_element(*self.backTopicListButton_loc).click()
 
-        # 保存视频图文创建
-        self.wait_element(*self.saveVideoGra_loc).click()
 

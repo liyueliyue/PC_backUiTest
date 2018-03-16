@@ -74,7 +74,11 @@ class topicList(unittest.TestCase):
 
     def test_c_createVideoGra(self):
         '''新建视频图文话题'''
-
-
+        self.dashboard.topicList()
+        self.topicList.createAudioAndVideoGraTopic()
+        sleep(1)
+        insert_img(self.driver,"13视频图文话题.jpg")
+        # 断言
+        self.assertIn("liveId=310000108181722&channelId=",self.driver.current_url)
 if __name__ == "__main__":
     unittest.main()
