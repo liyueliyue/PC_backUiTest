@@ -42,11 +42,14 @@ class TopicList(Page):
     channelSelectbutton_loc = (By.XPATH,".//*[@id='from-channel']/div[1]/div")
     campleSelectButton_loc = (By.XPATH,".//*[@id='from-camp']/div[1]/div")
     singleSoleInChannel_loc = (By.XPATH,".//*[@id='from-channel']/label/span[1]/input")
+    singleSolePrice_loc = (By.XPATH,".//*[@id='app']/div/div[1]/div/div[2]/div/div[2]/div[2]/form/div[4]/div[2]/div/div[3]/span/span/input")
     liveIntroTextButton_loc = (By.XPATH,".//*[@id='app']/div/div[1]/div/div[2]/div/div[2]/div[2]/form/div[5]/div[2]/div/div[2]")
     liveIntroText_loc = (By.XPATH,".//*[@id='app']/div/div[1]/div/div[2]/div/div[2]/div[2]/form/div[5]/div[2]/div/section/div/textarea")
     liveIntroPicButton_loc = (By.XPATH,".//*[@id='app']/div/div[1]/div/div[2]/div/div[2]/div[2]/form/div[5]/div[2]/div/div[1]/div/input[1]")
     saveButton_loc = (By.XPATH,".//*[@id='app']/div/div[1]/div/div[2]/div/div[2]/div[2]/form/div[6]/div/div/button")
 
+    # 保存视频图文创建
+    saveVideoGra_loc = (By.XPATH,'//*[@id="app"]/div/div[1]/div/div[2]/div/div[2]/div[2]/form/div[6]/div/div/button')
 
     #获取单课列表面包屑text
     def getTopicTitleText(self):
@@ -161,15 +164,26 @@ class TopicList(Page):
 
     # ############################新建音视频图文话题###########################
     # 新建系列课内的视频图文话题
-    def createAudioAndVideoGraTopic(self,graTopicName):
+    def createAudioAndVideoGraTopic(self):
         self.wait_element(*self.createTopicButton_loc).click()
         self.wait_element(*self.audioAndVideoGra_loc).click()
         # 课程主题
-        self.wait_element(*self.audioAndVideoGraTopicname_loc).send_keys(graTopicName)
+        self.wait_element(*self.audioAndVideoGraTopicname_loc).send_keys("这个是视频图文话题啊")
         # 课程类型
         self.wait_element(*self.videoGra_loc).click()
         # 收费类型
         self.wait_element(*self.channelbutton_loc).click()
         # 选择第一个系列课（这里不是select标签）
         self.select(*self.channelSelectbutton_loc,number=1)
+        # 选择系列课内单买
+        self.wait_element(*self.singleSoleInChannel_loc).click()
+        self.wait_element(*self.singleSolePrice_loc).send_keys('1')
+        # 直播概要-添加文字
+        self.wait_element(*self.liveIntroTextButton_loc).click()
+        self.wait_element(*self.liveIntroText_loc).send_keys('这个是视频图文话题啊！')
+        # 保存
+        self.wait_element(*self.saveButton_loc).click()
+
+        # 保存视频图文创建
+        self.wait_element(*self.saveVideoGra_loc).click()
 

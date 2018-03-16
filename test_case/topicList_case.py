@@ -72,5 +72,9 @@ class topicList(unittest.TestCase):
         # 断言
         self.assertIn("幻灯片直播话题-收费",self.driver.title)
 
+    def test_c_createVideoGra(self):
+        '''新建视频图文话题'''
+
+
 if __name__ == "__main__":
     unittest.main()
