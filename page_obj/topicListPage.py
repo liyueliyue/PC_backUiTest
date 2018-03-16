@@ -61,6 +61,12 @@ class TopicList(Page):
     # 上传成功，是否去往系列课话题列表页按钮
     backTopicListButton_loc = (By.XPATH,"/html/body/div[3]/div/div[2]/div/div[1]/div/div/div[2]/button[2]")
 
+# 创建音视频互动话题
+    # 课程主题
+    videoTopicName_loc = (By.XPATH,'//*[@id="app"]/div/div[1]/div/div[2]/div/div[2]/div[2]/form/div[1]/div[2]/div/input')
+    # 课程封面
+    _loc = (By.XPATH,'//*[@id="app"]/div/div[1]/div/div[2]/div/div[2]/div[2]/form/div[2]/div[2]/div/span[2]/div/div/input[1]')
+
     #获取单课列表面包屑text
     def getTopicTitleText(self):
         return self.wait_element(*self.topicTitle_loc).text
@@ -305,3 +311,9 @@ class TopicList(Page):
         # 点击返回话题列表页面
         self.wait_element(*self.backTopicListButton_loc).click()
 
+    # 新建视频互动话题-系列课内
+    def createVideoTopicChannell(self):
+        self.wait_element(*self.createTopicButton_loc).click()
+        self.wait_element(*self.audioAndVideoTopic_loc).click()
+        # 课程主题
+        self.wait_element(*self.videoTopicName_loc).send_keys('视频互动话题-系列课内话题#￥…')
