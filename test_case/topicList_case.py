@@ -73,12 +73,36 @@ class topicList(unittest.TestCase):
         self.assertIn("幻灯片直播话题-收费",self.driver.title)
 
     def test_c_createVideoGra(self):
-        '''新建视频图文话题'''
+        '''新建视频图文话题-channell'''
         self.dashboard.topicList()
-        self.topicList.createAudioAndVideoGraTopic()
+        self.topicList.createVideoGraTopic()
         sleep(1)
-        insert_img(self.driver,"13视频图文话题.jpg")
+        insert_img(self.driver,"14系列课内视频图文话题.jpg")
         # 断言
         self.assertIn("liveId=310000108181722&channelId=",self.driver.current_url)
+    def test_c2_createAudioGra(self):
+        '''新建音频图文话题-channell'''
+        self.dashboard.topicList()
+        self.topicList.createAudioGra()
+        sleep(1)
+        insert_img(self.driver,"15系列课内音频图文话题.jpg")
+        # 断言
+        self.assertIn("liveId=310000108181722&channelId=",self.driver.current_url)
+    def test_c3_createVideoGraTopicCamp(self):
+        '''新建视频图文话题-campe'''
+        self.dashboard.topicList()
+        self.topicList.createVideoGraTopicCamp()
+        sleep(1)
+        insert_img(self.driver,"16训练营内视频图文话题.jpg")
+        # 断言
+        self.assertIn("camp-topic-list?liveId=310000108181722",self.driver.current_url)
+    def test_c4_createAudioGraTopicCamp(self):
+        '''新建音频图文话题-campe'''
+        self.dashboard.topicList()
+        self.topicList.createAudioGraTopicCamp()
+        sleep(1)
+        insert_img(self.driver,"17训练营内音频图文话题.jpg")
+        # 断言
+        self.assertIn("camp-topic-list?liveId=310000108181722",self.driver.current_url)
 if __name__ == "__main__":
     unittest.main()

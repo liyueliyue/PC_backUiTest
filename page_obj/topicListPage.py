@@ -45,6 +45,7 @@ class TopicList(Page):
     channelSelectbutton_loc = (By.XPATH,".//*[@id='from-channel']/div/div/div/div[1]")
     campleSelectButton_loc = (By.XPATH,".//*[@id='from-camp']/div/div/div/div[1]")
     channell_loc = (By.XPATH,".//*[@id='from-channel']/div[2]/div/div/div/ul/li[1]")
+    campe_loc = (By.XPATH,".//*[@id='from-camp']/div[2]/div/div/div/ul/li[1]")
     singleSoleInChannel_loc = (By.XPATH,".//*[@id='from-channel']/label/span[1]/input")
     singleSolePrice_loc = (By.XPATH,".//*[@id='app']/div/div[1]/div/div[2]/div/div[2]/div[2]/form/div[4]/div[2]/div/div[3]/span/span/input")
     # 添加图片按钮
@@ -173,7 +174,7 @@ class TopicList(Page):
 
     # ############################新建音视频图文话题###########################
     # 新建系列课内的视频图文话题
-    def createAudioAndVideoGraTopic(self):
+    def createVideoGraTopic(self):
         self.wait_element(*self.createTopicButton_loc).click()
         self.wait_element(*self.audioAndVideoGra_loc).click()
         # 课程主题
@@ -202,8 +203,105 @@ class TopicList(Page):
         # 上传视频  是input表单直接直接使用send_keys()
         video = getDataFile("测试视频-sportguy.mp4")
         self.wait_element(*self.sendVideoButton_loc).send_keys(video)
-        time.sleep(3)
+        time.sleep(1)
         # 点击返回话题列表页面
         self.wait_element(*self.backTopicListButton_loc).click()
 
+    # 新建系列课内的音频图文话题
+    def createAudioGra(self):
+        self.wait_element(*self.createTopicButton_loc).click()
+        self.wait_element(*self.audioAndVideoGra_loc).click()
+        # 课程主题
+        self.wait_element(*self.audioAndVideoGraTopicname_loc).send_keys("音频图文话题"+str(time.time()))
+        # 上传课程封面
+        topicPic = getDataFile("测试图片-sportguy5.jpg")
+        self.wait_element(*self.topicPic_loc).send_keys(topicPic)
+        # 课程类型
+        self.wait_element(*self.audioGra_loc).click()
+        # 收费类型
+        self.wait_element(*self.channelbutton_loc).click()
+        # 选择第一个系列课（这里不是select标签）
+        self.wait_element(*self.channelSelectbutton_loc).click()
+        self.wait_element(*self.channell_loc).click()
+        # 选择系列课内单买
+        self.wait_element(*self.singleSoleInChannel_loc).click()
+        self.wait_element(*self.singleSolePrice_loc).send_keys('999')
+        # 直播概要-图片
+        liveIntroPicture = getDataFile("测试图片-sportguy5.jpg")
+        self.wait_element(*self.liveIntroPictureButton_loc).send_keys(liveIntroPicture)
+        # 直播概要-添加文字
+        self.wait_element(*self.liveIntroTextButton_loc).click()
+        time.sleep(2)
+        self.wait_element(*self.liveIntroText_loc).send_keys('这个是yinp@#$%^&*lfjafjajs ;ljjdf ja;ls dljsf图文话题啊！')
+        # 保存
+        self.wait_element(*self.saveButton_loc).click()
+        # 上传视频  是input表单直接直接使用send_keys()
+        audio = getDataFile("测试音频-sportguy.mp3")
+        self.wait_element(*self.sendVideoButton_loc).send_keys(audio)
+        time.sleep(1)
+        # 点击返回话题列表页面
+        self.wait_element(*self.backTopicListButton_loc).click()
+
+    # 新建打卡训练营内的视频图文话题
+    def createVideoGraTopicCamp(self):
+        self.wait_element(*self.createTopicButton_loc).click()
+        self.wait_element(*self.audioAndVideoGra_loc).click()
+        # 课程主题
+        self.wait_element(*self.audioAndVideoGraTopicname_loc).send_keys("这个是视频图文话题啊"+str(time.time()))
+        # 上传课程封面
+        topicPic = getDataFile("测试图片-sportguy1.jpg")
+        self.wait_element(*self.topicPic_loc).send_keys(topicPic)
+        # 课程类型
+        self.wait_element(*self.videoGra_loc).click()
+        # 收费类型
+        self.wait_element(*self.campleButton_loc).click()
+        # 选择第一个系列课（这里不是select标签）
+        self.wait_element(*self.campleSelectButton_loc).click()
+        self.wait_element(*self.campe_loc).click()
+        # 直播概要-图片
+        liveIntroPicture = getDataFile("测试图片-sportguy2.jpg")
+        self.wait_element(*self.liveIntroPictureButton_loc).send_keys(liveIntroPicture)
+        time.sleep(3)
+        # 直播概要-添加文字
+        self.wait_element(*self.liveIntroTextButton_loc).click()
+        self.wait_element(*self.liveIntroText_loc).send_keys('这个是视频图文话题啊！')
+        # 保存
+        self.wait_element(*self.saveButton_loc).click()
+        # 上传视频  是input表单直接直接使用send_keys()
+        video = getDataFile("测试视频-sportguy.mp4")
+        self.wait_element(*self.sendVideoButton_loc).send_keys(video)
+        time.sleep(1)
+        # 点击返回话题列表页面
+        self.wait_element(*self.backTopicListButton_loc).click()
+    # 新建打卡训练营内的视频图文话题
+    def createAudioGraTopicCamp(self):
+        self.wait_element(*self.createTopicButton_loc).click()
+        self.wait_element(*self.audioAndVideoGra_loc).click()
+        # 课程主题
+        self.wait_element(*self.audioAndVideoGraTopicname_loc).send_keys("音频图文￥$%^#@图文话题啊"+str(time.time()))
+        # 上传课程封面
+        topicPic = getDataFile("测试图片-sportguy2.jpg")
+        self.wait_element(*self.topicPic_loc).send_keys(topicPic)
+        # 课程类型
+        self.wait_element(*self.audioGra_loc).click()
+        # 收费类型
+        self.wait_element(*self.campleButton_loc).click()
+        # 选择第一个系列课（这里不是select标签）
+        self.wait_element(*self.campleSelectButton_loc).click()
+        self.wait_element(*self.campe_loc).click()
+        # 直播概要-图片
+        liveIntroPicture = getDataFile("测试图片-sportguy1.jpg")
+        self.wait_element(*self.liveIntroPictureButton_loc).send_keys(liveIntroPicture)
+        time.sleep(3)
+        # 直播概要-添加文字
+        self.wait_element(*self.liveIntroTextButton_loc).click()
+        self.wait_element(*self.liveIntroText_loc).send_keys('这个是#%*^%频图文话题啊！')
+        # 保存
+        self.wait_element(*self.saveButton_loc).click()
+        # 上传视频  是input表单直接直接使用send_keys()
+        video = getDataFile("测试音频-sportguy.mp3")
+        self.wait_element(*self.sendVideoButton_loc).send_keys(video)
+        time.sleep(1)
+        # 点击返回话题列表页面
+        self.wait_element(*self.backTopicListButton_loc).click()
 
