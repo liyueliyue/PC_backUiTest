@@ -65,7 +65,10 @@ class TopicList(Page):
     # 课程主题
     videoTopicName_loc = (By.XPATH,'//*[@id="app"]/div/div[1]/div/div[2]/div/div[2]/div[2]/form/div[1]/div[2]/div/input')
     # 课程封面
-    _loc = (By.XPATH,'//*[@id="app"]/div/div[1]/div/div[2]/div/div[2]/div[2]/form/div[2]/div[2]/div/span[2]/div/div/input[1]')
+    videoTopic_loc = (By.XPATH,'//*[@id="app"]/div/div[1]/div/div[2]/div/div[2]/div[2]/form/div[2]/div[2]/div/span[2]/div/div/input[1]')
+    # 直播类型
+    video_loc = (By.XPATH,'//*[@id="app"]/div/div[1]/div/div[2]/div/div[2]/div[2]/form/div[3]/div[2]/div/div[1]/label[1]')
+    # 直播时间
 
     #获取单课列表面包屑text
     def getTopicTitleText(self):
@@ -317,3 +320,8 @@ class TopicList(Page):
         self.wait_element(*self.audioAndVideoTopic_loc).click()
         # 课程主题
         self.wait_element(*self.videoTopicName_loc).send_keys('视频互动话题-系列课内话题#￥…')
+        # 上传课程封面
+        topicPic = getDataFile("测试图片-sportguy1.jpg")
+        self.wait_element(*self.videoTopic_loc).send_keys(topicPic)
+        # 选择直播类型
+        self.wait_element(*self.video_loc).click()
