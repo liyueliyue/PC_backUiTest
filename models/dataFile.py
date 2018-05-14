@@ -11,4 +11,4 @@ def getDataFile(fileName):
     return dataFile
 
 if __name__ == "__main__":
-    getDataFile("测试视频-sportguy.mp4")
+    print(getDataFile("测试视频-sportguy.mp4"))
