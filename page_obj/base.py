@@ -3,7 +3,7 @@ from selenium.webdriver.support.select import Select
 
 class Page():
     '''基础类，用于所有页面的继承'''
-    home_url = "https://m.qlchat.com/topic/details?topicId=2000000871263149&preview=Y"
+    home_url = r"https://m.qlchat.com/wechat/page/topic-intro?topicId=2000001368645697"
     pcUrl = "https://m.qlchat.com/video/admin/live/select"
     def __init__(self,driver,base_url=home_url):
         self.driver = driver
